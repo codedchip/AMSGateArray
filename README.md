@@ -1,7 +1,7 @@
 # Introduction
 For some time, a group of Amstrad CPC enthusiasts have been working towards creating a replacement for the gate array chip. You can read all about their journey in the link below. I happend upon this because I had bought an Amstrad CPC 6128 and couldn't get it to work. Indications were pointing at the gate array and I thought it might be interesting to have a go at implementing some verilog for it, especially since so much prerequisite work had been done by others.
 
-https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!(https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!)
+[https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!](https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!)
 
 TLDR; the gate array was decapped and Gerald on the forums produced schematics for it. A copy of those schematics can be found here:
 
