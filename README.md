@@ -41,18 +41,18 @@ The purpose of these boards is for prototyping. However, I will look into minitu
 
 ![Board](https://github.com/codedchip/AMSGateArray/blob/master/40010/PCB.png)
 
-![Front](https://github.com/codedchip/AMSGateArray/blob/master/40010/BoardFront.png)
+![Front](https://github.com/codedchip/AMSGateArray/blob/master/40010/BoardFront.jpg)
 
-![Back](https://github.com/codedchip/AMSGateArray/blob/master/40010/BoardBack.png)
+![Back](https://github.com/codedchip/AMSGateArray/blob/master/40010/BoardBack.jpg)
 
 ## 40007
 ![Schematic](https://github.com/codedchip/AMSGateArray/blob/master/40007/Schematic.png)
 
 ![Board](https://github.com/codedchip/AMSGateArray/blob/master/40007/PCB.png)
 
-![Front](https://github.com/codedchip/AMSGateArray/blob/master/40007/BoardFront.png)
+![Front](https://github.com/codedchip/AMSGateArray/blob/master/40007/BoardFront.jpg)
 
-![Back](https://github.com/codedchip/AMSGateArray/blob/master/40007/BoardBack.png)
+![Back](https://github.com/codedchip/AMSGateArray/blob/master/40007/BoardBack.jpg)
 
 
 
