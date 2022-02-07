@@ -37,21 +37,23 @@ The boards are very simple designs, varying only in the pinout of the DIP-40 foo
 The purpose of these boards is for prototyping. However, I will look into miniturising as far as possible. This might mean simplifying the verilog to fit onto a smaller CPLD, using multiple interconnected CPLDs, or a combination of both. The immediate priority though is to test the verilog code. I need a working gate array for part of a bigger project where I would be free to surface mount the CPLD on a much larger board, so miniturising might not be my main concern.
 
 ## 40010
+### Schematic
 ![Schematic](https://github.com/codedchip/AMSGateArray/blob/master/40010/Schematic.png)
-
+### PCB
 ![Board](https://github.com/codedchip/AMSGateArray/blob/master/40010/PCB.png)
-
+### Top view
 ![Front](https://github.com/codedchip/AMSGateArray/blob/master/40010/BoardFront.jpg)
-
+### Bottom view
 ![Back](https://github.com/codedchip/AMSGateArray/blob/master/40010/BoardBack.jpg)
 
 ## 40007
+### Schematic
 ![Schematic](https://github.com/codedchip/AMSGateArray/blob/master/40007/Schematic.png)
-
+### PCB
 ![Board](https://github.com/codedchip/AMSGateArray/blob/master/40007/PCB.png)
-
+### Top view
 ![Front](https://github.com/codedchip/AMSGateArray/blob/master/40007/BoardFront.jpg)
-
+### Bottom view
 ![Back](https://github.com/codedchip/AMSGateArray/blob/master/40007/BoardBack.jpg)
 
 
