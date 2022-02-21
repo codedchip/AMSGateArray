@@ -10,8 +10,8 @@ During the course of this little hobby project, I realised two things:
 
 So, I decided I needed to be able to recreate the gate array and understand how it worked. Fortunately, lots of other people have been working towards that too. Just as well, because otherwise I'd have no chance.
 
-#Other people's work
-It seems that for some time, a group of Amstrad CPC enthusiasts have been working towards creating a replacement for the hard to find gate array chip. You can read all about their journey in the link below.
+# Other people's work
+Fortunately for me, it seems that for some time a group of Amstrad CPC enthusiasts have been working towards creating a replacement for the hard to find gate array chip. You can read all about their journey in the link below.
 
 [https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!](https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!)
 
