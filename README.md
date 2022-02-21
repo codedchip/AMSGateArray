@@ -1,5 +1,17 @@
 # Introduction
-For some time, a group of Amstrad CPC enthusiasts have been working towards creating a replacement for the gate array chip. You can read all about their journey in the link below. I happend upon this because I had bought an Amstrad CPC 6128 and couldn't get it to work. Indications were pointing at the gate array and I thought it might be interesting to have a go at implementing some verilog for it, especially since so much prerequisite work had been done by others.
+For reasons that I can't quite remember, during the Covid lockdown I bought a broken Amstrad CPC 6128 and restored it. I had to buy a new gate array chip though, and that wasn't cheap or easy to find.
+
+In a wave of misplaced inspiration, I then undertook to recreate the Amstrad CPC 6128 from schematics. That project is coming along well, and since I'm working from schematics I can make changes to the system as I see fit with the goal of creating a slightly more modern CPC but still being true to the original design. This has been done before of course, but I wanted to do it my way and to open source the results.
+
+During the course of this little hobby project, I realised two things:
+
+1) I didn't want to pull apart a perfectly good CPC to harvest the gate array, and,
+2) if I could control the gate array and be free to change it's implementation then lots of possibilities opened up.
+
+So, I decided I needed to be able to recreate the gate array and understand how it worked. Fortunately, lots of other people have been working towards that too. Just as well, because otherwise I'd have no chance.
+
+#Other people's work
+It seems that for some time, a group of Amstrad CPC enthusiasts have been working towards creating a replacement for the hard to find gate array chip. You can read all about their journey in the link below.
 
 [https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!](https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!)
 
@@ -11,9 +23,9 @@ The MiSTer project has a Amstrad CPC core which contains a verilog implementatio
 
 https://github.com/MiSTer-devel/Amstrad_MiSTer/tree/master/rtl/GA40010
 
-There was some speculation on the forum as to whether Gyorgy's code could be put onto a Xilinx CPLD, specifically the XC95288XL which has 5V tolerant I/O. With a suitable daughter board it ought to be possible to replace the gate array with such a device. There are several people working on reproducing the gate arrays in verilog (as well as on ARM). With that in mind I produced two reference boards, one for the pinout of the 40010 and a second for the pinout of the 40007. This repository has the schematics and gerber files for those boards as well as my own attempt at verilog for both chip implementations (at least the 40010 and a pin mapped 40007, so the same verilog for both that is).
+There was some speculation on the forum as to whether Gyorgy's code could be put onto a Xilinx CPLD, specifically the XC95288XL which has 5V tolerant I/O. With a suitable daughter-board it ought to be possible to replace the gate array with such a device. There are several people working on reproducing the gate arrays in verilog (as well as on ARM). With that in mind I produced two reference boards, one for the pinout of the 40010 and a second for the pinout of the 40007. This repository has the schematics and gerber files for those boards as well as my own attempt at verilog for both chip implementations (at least the 40010 and a pin mapped 40007, so the same verilog for both that is).
 
-Hopefully this is of some use to people either looking for a test platform for their own Gate Array implementations or who can build on my verilog implementation.
+Hopefully this is of some use to people either looking for a test platform for their own implementation, or who can build on my verilog effort, which is in turn built on other people's work.
 
 # Current status
 - Initial 40010 verilog implementation has passed basic testing on a real Amstrad CPC 6128.
@@ -34,7 +46,7 @@ With basic testing on an Amstrad CPC 6128 it seems that the GA is working as it 
 # The boards
 The boards are very simple designs, varying only in the pinout of the DIP-40 footprint and the corresponding power and ground connections. I have not incorporated level shifters for the reasons discussed above, however I have used a 3.6V regulator to power the CPLD to improve logic levels. This is still within the spec of the XC95288XL, but can easily be substituted with a 3.3V model as required. As mentioned earlier, I haven't had issues caused by any output signals being outside TTL specs and a high being represented as a low. Hopefully this remains the case through testing as the simpler board design results in much better routing and comfortably fits on two layers. Virtually all signal traces are on the bottom of the board, with all power and ground traces on the top. As I said, very simple stuff. On both boards I have routed the 16MHz clock and HSYNC to the GCLK pins on the CPLD as these signals are both essentially external clocks and that is best practice. However, I hope to remove the dependency on HSYNC for clocking in due course.
 
-The purpose of these boards is for prototyping. They are probably larger than they need to be, even with the large CPLD. That's partly to keep to two layers for cost, but mostly priorities. However, I will look into miniturising as far as possible. This might mean simplifying the verilog to fit onto a smaller CPLD, using multiple interconnected CPLDs, or a combination of both. The immediate priority though is to test the verilog code. I need a working gate array for part of a bigger project where I would be free to surface mount the CPLD on a much larger board, so miniturising might not be my main concern.
+The purpose of these boards is for prototyping. They are probably larger than they need to be, even with the large CPLD. That's partly to keep to two layers for cost, but mostly priorities. However, I will look into miniturising as far as possible. This might mean simplifying the verilog to fit onto a smaller CPLD, using multiple interconnected CPLDs, or a combination of both. The immediate priority though is to test the verilog code. I need a working gate array for my CPC project, where I will be free to surface mount the CPLD on a much larger board, so miniturising might not be my main concern.
 
 ## 40010
 ### Schematic
