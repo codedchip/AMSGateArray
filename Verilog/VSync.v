@@ -43,6 +43,7 @@ module VSync(input CCLK,
   reg vsync_d; // u803
   reg vsync_o_d; // u812
 
+  (* NOREDUCE = "true" *)
   wire irqack_rst;
   wire VSYNC_O;
   wire HSYNC_O;
@@ -191,11 +192,11 @@ module VSync(input CCLK,
         hdelay[3] <= 0;
       else
         hdelay[3] <= ~hdelay[3];
-
   assign HSYNC_O = hdelay[2];
   assign NSYNC = ~(VSYNC_O ^ HSYNC_O);
   assign MODE_SYNC = ~hdelay[2];
 
+  (* NOREDUCE = "true" *)
   wire int_reset = IRQ_RESET | irqack_rst;
   always
     @(negedge intcnt[5],
@@ -207,10 +208,6 @@ module VSync(input CCLK,
           INT_n <= 0;
       end
 
-  reg irqack_rst_r;
-  always
-    @(negedge intcnt[5])
-      irqack_rst_r <= irqack_rst;
-
-  assign irqack_rst = ~M1_n & (irqack_rst_r | ~(INT_n | IORQ_n | M1_n));
+  (* NOREDUCE = "true" *)
+  assign irqack_rst = ~M1_n & (irqack_rst | ~(INT_n | IORQ_n | M1_n));
 endmodule
