@@ -28,9 +28,13 @@ There was some speculation on the forum as to whether Gyorgy's code could be put
 Hopefully this is of some use to people either looking for a test platform for their own implementation, or who can build on my verilog effort, which is in turn built on other people's work.
 
 # Current status
+- This is very much a prototype.
+- Having physical boards where changes to the verilog can be quickly checked in real hardware is proving invaluable.
 - Initial 40010 verilog implementation has passed basic testing on a real Amstrad CPC 6128.
 - Prototype boards have been produced for the 40010 pinout and the 40007 pinout. The verilog should theoretically work on both with just different pin constraints and perhaps some minor changes. I have not yet tested the 40007 as I don't have a CPC 464.
 - The next step is to continue to refine the verilog code and test further. In particular I want to refine the clock domains in the code.
+- At this time there is still some asynchronous logic, particularly in vsync and casgen. Although I haven't seen any evidence of it, this might cause timing glitches. Conversion of these sections to something more appropriate is a work in progress.
+- There is also one place left (irqack) where a combinatorial loop is present. I'll remove this if it still exists after converting that part to be more synchronous.
 
 # My first attempt
 For my first attempt at this I produced a very simple board which more or less wired up the XC95288XL to the pins of a DIP socket with a basic power supply and nothing else. My main goal was to determine if level shifting was required for output signals and to see if I could get some verilog to work. Since I wanted to learn verilog and FPGA programming in general I set about recreating Gerald's schematics for the Xilinx chip. I wrote verilog code for each page of the schematic in turn. Actually, this very nearly worked. I had a black screen but using an oscilloscope could see that the chip was "alive" and that all of the various signals were being produced. However, with a black screen troubleshooting was hard.
