@@ -32,12 +32,13 @@ module CasGen(input CLK_n,
               input PHI_n,
               input MREQ_n,
               input[7 : 0] S,
-              output CAS_n);
+              output reg CAS_n);
   // u705
   reg u705;
   always
     @(posedge PHI_n)
       u705 = M1_n;
+
   wire u707 = ~M1_n | u705;
   // u708
   reg u708;
@@ -52,19 +53,27 @@ module CasGen(input CLK_n,
           u708 <= 0;
         else
           u708 <= 1; //5V
+
   // u706
   reg u706;
   always
     @(posedge CLK_n)
       u706 <= (~S[4] & S[5]) | (~S[3] & S[1]) | (S[1] & S[7]);
+
   // u709
   reg u709;
   always
     @(negedge CLK_n)
       u709 <= u706;
+
   // Glue -> CAS_n
   wire u710 = ~u708 | MREQ_n | ~S[4] | S[5];
-  (* NOREDUCE = "TRUE" *)
-  wire u712 = u710 & S[2] & (u706 | u712);
-  assign CAS_n = u712 | u706 | u709;
+
+  reg u712;
+  always 
+	@(posedge CLK_n)
+  begin
+    u712 <= u710 & S[2] & (u706 | u712);
+    CAS_n <= u712 | u706 | u709;
+  end
 endmodule

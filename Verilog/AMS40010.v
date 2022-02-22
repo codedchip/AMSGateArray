@@ -114,6 +114,7 @@ module AMS40010(input PAD_RESET_n,
   wire[4 : 0] BORDER;
   wire HROMEN;
   wire LROMEN;
+  
   Registers registers(.RESET(RESET),
                       .CLK_n(CLK_n),
                       .IORQ_n(PAD_IORQ_n),
@@ -246,15 +247,10 @@ module AMS40010(input PAD_RESET_n,
   assign PAD_CAS_n = CAS_n;
   assign PAD_SYNC_n = NSYNC;
   assign PAD_INT_n = INT_n;
-  TriState tristateRed(.I(RED),
-                       .T(RED_OEn),
-                       .O(PAD_RED));
-  TriState tristateBlue(.I(BLUE),
-                        .T(BLUE_OEn),
-                        .O(PAD_BLUE));
-  TriState tristateGreen(.I(GREEN),
-                         .T(GREEN_OEn),
-                         .O(PAD_GREEN));
+
+  assign PAD_RED = RED_OEn ? 1'bz : RED;
+  assign PAD_BLUE = BLUE_OEn ? 1'bz : BLUE;
+  assign PAD_GREEN = GREEN_OEn ? 1'bz : GREEN;
   assign PAD_ROMEN_n = ROMEN_n;
   assign PAD_RAMRD_n = RAMRD_n;
 endmodule

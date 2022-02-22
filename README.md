@@ -19,7 +19,7 @@ TLDR; the gate array was decapped and Gerald on the forums produced schematics f
 
 https://github.com/codedchip/AMSGateArray/blob/master/Docs/40010-simplified_V03.pdf
 
-The MiSTer project has a Amstrad CPC core which contains a verilog implementation of Gerald's schematics written by Gyorgy Szombathelyi:
+The MiSTer project has an Amstrad CPC core which contains a verilog implementation of Gerald's schematics written by Gyorgy Szombathelyi:
 
 https://github.com/MiSTer-devel/Amstrad_MiSTer/tree/master/rtl/GA40010
 
