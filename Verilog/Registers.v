@@ -58,14 +58,14 @@ module Registers(input CLK_n,
     @(posedge CLK_n)
       begin
         // wires
-        reg_sel = M1_n & A14 & ~A15 & ~IORQ_n & S0 & S7; // u401
-        inksel_en = reg_sel & ~D[7] & ~D[6]; // u402
-        border_en = reg_sel & ~D[7] & D[6] & inksel[4]; // u408
-        reg_en = reg_sel & D[7] & ~D[6]; // u414
+        reg_sel <= M1_n & A14 & ~A15 & ~IORQ_n & S0 & S7; // u401
+        inksel_en <= reg_sel & ~D[7] & ~D[6]; // u402
+        border_en <= reg_sel & ~D[7] & D[6] & inksel[4]; // u408
+        reg_en <= reg_sel & D[7] & ~D[6]; // u414
 
         // on the schematic the ~inksel[4] condition is missing, but this would mean border 
         // and ink potentially being selected at the same time
-        ink_en = reg_sel & ~D[7] & D[6] & ~inksel[4]; // u420
+        ink_en <= reg_sel & ~D[7] & D[6] & ~inksel[4]; // u420
 
         // inksel branch
         if (inksel_en)

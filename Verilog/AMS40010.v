@@ -23,7 +23,7 @@
 //  Based on 40010-simplified_V03.pdf by Gerald 
 //  (https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!) 
 //  
-//  Partially based on the Amstrad MiSTer core by Gyorgy Szombathelyi
+//  Partially based on  the Amstrad MiSTer core by Gyorgy Szombathelyi
 //  https://github.com/MiSTer-devel/Amstrad_MiSTer
 // ===============================================================================
 module AMS40010(input PAD_RESET_n,
@@ -114,7 +114,7 @@ module AMS40010(input PAD_RESET_n,
   wire[4 : 0] BORDER;
   wire HROMEN;
   wire LROMEN;
-  
+
   Registers registers(.RESET(RESET),
                       .CLK_n(CLK_n),
                       .IORQ_n(PAD_IORQ_n),
@@ -139,7 +139,9 @@ module AMS40010(input PAD_RESET_n,
   wire INT_n;
   wire MODE_SYNC;
   wire HCNTLT28;
-  VSync vsync(.CCLK(CCLK),
+  VSync vsync(
+              .CLK_n(CLK_n),
+              .CCLK(CCLK),
               .RESET(RESET),
               .M1_n(PAD_M1_n),
               .IORQ_n(PAD_IORQ_n),

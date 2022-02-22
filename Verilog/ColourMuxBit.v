@@ -37,30 +37,29 @@ module ColourMuxBit(input CLK_n,
                     input MODE_IS_2,
                     output reg INK);
   // Note: component numbers relate to ColourMuxBit0 on the schematics
-  reg u1701,
-      u1702,
-      u1703,
-      u1718,
-      u1719,
-      u1720,
-      u1721;
-  reg [3 : 0] ink_0;
-  reg [3 : 0] ink_1;
-  reg [3 : 0] muxOutput;
+  wire u1701,
+       u1702,
+       u1703,
+       u1718,
+       u1719,
+       u1720,
+       u1721;
+  wire [3 : 0] ink_0;
+  wire [3 : 0] ink_1;
+  wire [3 : 0] muxOutput;
+
+  assign u1701 = CIDX[2] & MODE_IS_0;
+  assign ink_0 = { (u1701 | INKR[1]) & (INKR[5] | ~u1701), (u1701 | INKR[3]) & (INKR[7] | ~u1701), (u1701 | INKR[0]) & (INKR[4] | ~u1701), (u1701 | INKR[2]) & (INKR[6] | ~u1701) };
+  assign ink_1 = { (u1701 | INKR[9]) & (INKR[13] | ~u1701), (u1701 | INKR[11]) & (INKR[15] | ~u1701), (u1701 | INKR[8]) & (INKR[12] | ~u1701), (u1701 | INKR[10]) & (INKR[14] | ~u1701) };
+  assign u1702 = CIDX[3] & MODE_IS_0;
+  assign muxOutput = u1702 ? ink_1 : ink_0;
+  assign u1703 = CIDX[1] & ~MODE_IS_2;
+  assign u1718 = (u1703 | muxOutput[3]) & (~u1703 | muxOutput[2]);
+  assign u1719 = (u1703 | muxOutput[1]) & (~u1703 | muxOutput[0]);
+  assign u1720 = INK_SEL & CIDX[0] & u1718;
+  assign u1721 = INK_SEL & ~CIDX[0] & u1719;
 
   always
     @(posedge CLK_n)
-    begin
-      u1701 = CIDX[2] & MODE_IS_0;
-      ink_0 = { (u1701 | INKR[1]) & (INKR[5] | ~u1701), (u1701 | INKR[3]) & (INKR[7] | ~u1701), (u1701 | INKR[0]) & (INKR[4] | ~u1701), (u1701 | INKR[2]) & (INKR[6] | ~u1701) };
-      ink_1 = { (u1701 | INKR[9]) & (INKR[13] | ~u1701), (u1701 | INKR[11]) & (INKR[15] | ~u1701), (u1701 | INKR[8]) & (INKR[12] | ~u1701), (u1701 | INKR[10]) & (INKR[14] | ~u1701) };
-      u1702 = CIDX[3] & MODE_IS_0;
-      muxOutput = u1702 ? ink_1 : ink_0;
-      u1703 = CIDX[1] & ~MODE_IS_2;
-      u1718 = (u1703 | muxOutput[3]) & (~u1703 | muxOutput[2]);
-      u1719 = (u1703 | muxOutput[1]) & (~u1703 | muxOutput[0]);
-      u1720 = INK_SEL & CIDX[0] & u1718;
-      u1721 = INK_SEL & ~CIDX[0] & u1719;
       INK = (INK & COLOUR_KEEP) | (BORDER_SEL & BORDER) | u1720 | u1721;
-    end
 endmodule
