@@ -23,43 +23,35 @@
 //  Based on 40010-simplified_V03.pdf by Gerald 
 //  (https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!) 
 //  
-//  Partially based on the Amstrad MiSTer core by Gyorgy Szombathelyi
+//  Partially based on  the Amstrad MiSTer core by Gyorgy Szombathelyi
 //  https://github.com/MiSTer-devel/Amstrad_MiSTer/tree/master/rtl/GA40010
 // ===============================================================================
 module SequenceDecoder(input CLK_n,
                        input[7 : 0] S,
                        input RD_n,
                        input IORQ_n,
-                       output PHI_n,
-                       output RAS_n,
-                       output READY,
-                       output CASAD_n,
-                       output CPU_n,
-                       output CCLK,
-                       output MWE_n,
-                       output s244E_n);
-  reg _phi_n;
-  reg _ras_n;
-  reg _casad_n;
-  reg _ready;
+                       output reg PHI_n,
+                       output reg RAS_n,
+                       output reg READY,
+                       output reg CASAD_n,
+                       output reg CPU_n,
+                       output reg CCLK,
+                       output reg MWE_n,
+                       output reg s244E_n);
   always
     @(posedge CLK_n)
       begin
-        _phi_n <= (S[1] ^ S[3]) | (S[5] ^ S[7]);
-        _ras_n <= (S[6] | ~S[2]) & S[0];
+        PHI_n <= (S[1] ^ S[3]) | (S[5] ^ S[7]);
+        RAS_n <= (S[6] | ~S[2]) & S[0];
+        CPU_n <= ~(S[1] & ~S[7]);
+        CCLK <= ~(S[2] | S[5]);
+        MWE_n <= ~(S[0] & S[5] & RD_n);
+        s244E_n <= ~(S[2] & S[3] & ~IORQ_n);
       end
   always
     @(negedge CLK_n)
       begin
-        _casad_n <= _ras_n;
-        _ready <= (~_ras_n & _ready) | (S[3] & ~S[6]);
+        CASAD_n <= RAS_n;
+        READY <= (~RAS_n & READY) | (S[3] & ~S[6]);
       end
-  assign PHI_n = _phi_n;
-  assign RAS_n = _ras_n;
-  assign CASAD_n = _casad_n;
-  assign CPU_n = ~(S[1] & ~S[7]);
-  assign CCLK = ~(S[2] | S[5]);
-  assign MWE_n = ~(S[0] & S[5] & RD_n);
-  assign s244E_n = ~(S[2] & S[3] & ~IORQ_n);
-  assign READY = _ready;
 endmodule
