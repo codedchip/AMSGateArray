@@ -23,7 +23,7 @@
 //  Based on 40010-simplified_V03.pdf by Gerald 
 //  (https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!) 
 //  
-//  Further built by reference to the Amstrad MiSTer core by Gyorgy Szombathelyi
+//  Partially based on the Amstrad MiSTer core by Gyorgy Szombathelyi
 //  https://github.com/MiSTer-devel/Amstrad_MiSTer/tree/master/rtl/GA40010
 // ===============================================================================
 module Sequencer(input RESET,
@@ -32,10 +32,11 @@ module Sequencer(input RESET,
                  input RD_n,
                  input CLK_n,
                  output reg[7 : 0] S);
-  wire u204 = (RESET & ~M1_n & ~IORQ_n & ~RD_n) | (S[6] & ~S[7]);
+  reg u204;
   always
     @(posedge CLK_n)
       begin
+        u204 <= (RESET & ~M1_n & ~IORQ_n & ~RD_n) | (S[6] & ~S[7]);
         S[0] <= ~S[7];
         S[1] <= S[0] | u204;
         S[2] <= S[1] | u204;

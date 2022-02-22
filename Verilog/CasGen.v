@@ -23,7 +23,7 @@
 //  Based on 40010-simplified_V03.pdf by Gerald 
 //  (https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!) 
 //  
-//  Further built by reference to the Amstrad MiSTer core by Gyorgy Szombathelyi
+//  Partially based on the Amstrad MiSTer core by Gyorgy Szombathelyi
 //  https://github.com/MiSTer-devel/Amstrad_MiSTer/tree/master/rtl/GA40010
 // ===============================================================================
 module CasGen(input CLK_n,
@@ -33,6 +33,7 @@ module CasGen(input CLK_n,
               input MREQ_n,
               input[7 : 0] S,
               output reg CAS_n);
+
   // u705
   reg u705;
   always
@@ -66,14 +67,12 @@ module CasGen(input CLK_n,
     @(negedge CLK_n)
       u709 <= u706;
 
-  // Glue -> CAS_n
-  wire u710 = ~u708 | MREQ_n | ~S[4] | S[5];
-
-  reg u712;
+  reg u710, u712;
   always 
-	@(posedge CLK_n)
+  @(posedge CLK_n)
   begin
-    u712 <= u710 & S[2] & (u706 | u712);
-    CAS_n <= u712 | u706 | u709;
+    u710 = ~u708 | MREQ_n | ~S[4] | S[5];
+    u712 = u710 & S[2] & (u706 | u712);
+    CAS_n = u712 | u706 | u709;
   end
 endmodule

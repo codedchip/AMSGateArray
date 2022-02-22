@@ -23,7 +23,7 @@
 //  Based on 40010-simplified_V03.pdf by Gerald 
 //  (https://www.cpcwiki.eu/forum/amstrad-cpc-hardware/gate-array-decapped!) 
 //  
-//  Further built by reference to the Amstrad MiSTer core by Gyorgy Szombathelyi
+//  Partially based on the Amstrad MiSTer core by Gyorgy Szombathelyi
 //  https://github.com/MiSTer-devel/Amstrad_MiSTer/tree/master/rtl/GA40010
 // ===============================================================================
 module VideoShift(input CLK_n,
