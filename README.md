@@ -33,13 +33,24 @@ Hopefully this is of some use to people either looking for a test platform for t
 - Initial 40010 verilog implementation has passed basic testing on a real Amstrad CPC 6128.
 - Prototype boards have been produced for the 40010 pinout and the 40007 pinout. The verilog should theoretically work on both with just different pin constraints and perhaps some minor changes. I have not yet tested the 40007 as I don't have a CPC 464.
 - The next step is to continue to refine the verilog code and test further.
-- ~~At this time there is still some asynchronous logic, particularly in vsync and casgen. Although I haven't seen any evidence of it, this might cause timing glitches. Conversion of these sections to something more appropriate is a work in progress.
+- ~~At this time there is still some asynchronous logic, particularly in vsync and casgen. Although I haven't seen any evidence of it, this might cause timing glitches. Conversion of these sections to something more appropriate is a work in progress.~~
 - ~~There is also one place left (irqack) where a combinatorial loop is present. I'll remove this if it still exists after converting that part to be more synchronous.~~
 
 # Testing
-I've been pointed towards demos as a good way of testing out the gate array. Here are the demos I have tested so far, I'll update this list as I go.
+I've been pointed towards demos as a good way of testing out the gate array. Although they are normally using tricks of the CRTC, demos rely on timings from the gate array, so I hope that running them will help flush out any bugs. Here are the demos I have tested so far, I'll update this list as I go. "Pass" means that to my eyes the demo looks exactly the same on the replacement gate array as it does on a real one. These tests are based on [this forum post](https://mametesters.org/view.php?id=6061).
 
-- Batman Forever - works great, and what an amazing demo.
+| Demo           | URL                                       | Platform   | Result |
+|----------------|-------------------------------------------|------------|--------|
+| Batman Forever | http://www.pouet.net/prod.php?which=56761 | 6128/40010 | Pass |
+| Still Rising   | http://www.pouet.net/prod.php?which=61177 | 6128/40010 | Pass |
+| From Scratch   | http://www.pouet.net/prod.php?which=53596 | 6128/40010 | Pass |
+| Phortem        | http://www.pouet.net/prod.php?which=61465 | 6128/40010 |  |
+| Wolfenstrad    | http://www.pouet.net/prod.php?which=58887 | 6128/40010 |  |
+| DTC            | http://www.pouet.net/prod.php?which=20226 | 6128/40010 |  |
+| Yet Another Plasma!   | http://www.pouet.net/prod.php?which=60660 | 6128/40010 |  |
+| Wake Up!   | http://www.pouet.net/prod.php?which=59073 | 6128/40010 |  |
+| Breaking Baud   | http://www.pouet.net/prod.php?which=62934 | 6128/40010 |  |
+| Pheelone   | http://www.pouet.net/prod.php?which=53498 | 6128/40010 |  |
 
 # My first attempt
 For my first attempt at this I produced a very simple board which more or less wired up the XC95288XL to the pins of a DIP socket with a basic power supply and nothing else. My main goal was to determine if level shifting was required for output signals and to see if I could get some verilog to work. Since I wanted to learn verilog and FPGA programming in general I set about recreating Gerald's schematics for the Xilinx chip. I wrote verilog code for each page of the schematic in turn. Actually, this very nearly worked. I had a black screen but using an oscilloscope could see that the chip was "alive" and that all of the various signals were being produced. However, with a black screen troubleshooting was hard.
