@@ -61,6 +61,8 @@ I've been pointed towards demos as a good way of testing since they hit the hard
 | Wake Up! (final)  | http://www.pouet.net/prod.php?which=59073 | 6128/40010 CPLD/CRTC 1 |  Pass |
 | Pheelone   | http://www.pouet.net/prod.php?which=53498 | 6128/40010 CPLD/CRTC 1 | Pass |
 
+![Testing Batman](https://github.com/codedchip/AMSGateArray/blob/master/Docs/TestingBatman.jpg)
+
 # The boards
 The boards are very simple designs, varying only in the pinout of the DIP-40 footprint and the corresponding power and ground connections. I have not incorporated level shifters for the reasons discussed above, however I have used a 3.6V regulator to power the CPLD to improve logic levels. This is still within the spec of the XC95288XL, but can easily be substituted with a 3.3V model as required. As mentioned earlier, I haven't had issues caused by any output signals being outside TTL specs and a high being represented as a low. Hopefully this remains the case through testing as the simpler board design results in much better routing and comfortably fits on two layers. Virtually all signal traces are on the bottom of the board, with all power and ground traces on the top. As I said, very simple stuff. On both boards I have routed the 16MHz clock and HSYNC to the GCLK pins on the CPLD as these signals are both essentially external clocks and that is best practice. However, I hope to remove the dependency on HSYNC for clocking in due course.
 
