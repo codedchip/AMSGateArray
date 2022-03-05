@@ -47,7 +47,7 @@ At this point I gave up for a while because I needed to create some new boards d
 # Testing
 With basic testing on an Amstrad CPC 6128 it seems that the GA is working as it should. I can play games, use my Dandanator, and all of the mode commands and colour changing commands in basic that I know about seem to work. *Much* more extenstive testing is required though. 
 
-I've been pointed towards demos as a good way of testing out the gate array. Although they are normally using tricks of the CRTC, I hope that running them will help flush out any bugs. Here are the demos I have tested so far, I'll update this list as I go. "Pass" means that to my eyes the demo looks exactly the same when using the replacement gate array as with a real one. These tests are based on [this forum post](https://mametesters.org/view.php?id=6061).
+I've been pointed towards demos as a good way of testing since they hit the hardware pretty hard and rely on tight timings. Although they are normally using tricks of the CRTC, I hope that running them will help flush out any bugs in the gate array also. Here are the demos I have tested so far, I'll update this list as I go. "Pass" means that to my eyes the demo looks exactly the same when using the replacement gate array as with a real one. These tests are based on [this forum post](https://mametesters.org/view.php?id=6061).
 
 | Demo           | URL                                       | Platform   | Result |
 |----------------|-------------------------------------------|------------|--------|
