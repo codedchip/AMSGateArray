@@ -27,31 +27,6 @@ There was some speculation on the forum as to whether Gyorgy's code could be put
 
 Hopefully this is of some use to people either looking for a test platform for their own implementation, or who can build on my verilog effort, which is in turn built on other people's work.
 
-# Current status
-- This is very much a prototype.
-- Having physical boards where changes to the verilog can be quickly checked in real hardware is proving invaluable.
-- Initial 40010 verilog implementation has passed basic testing on a real Amstrad CPC 6128.
-- Prototype boards have been produced for the 40010 pinout and the 40007 pinout. The verilog should theoretically work on both with just different pin constraints and perhaps some minor changes. I have not yet tested the 40007 as I don't have a CPC 464.
-- The next step is to continue to refine the verilog code and test further.
-- ~~At this time there is still some asynchronous logic, particularly in vsync and casgen. Although I haven't seen any evidence of it, this might cause timing glitches. Conversion of these sections to something more appropriate is a work in progress.~~
-- ~~There is also one place left (irqack) where a combinatorial loop is present. I'll remove this if it still exists after converting that part to be more synchronous.~~
-
-# Testing
-I've been pointed towards demos as a good way of testing out the gate array. Although they are normally using tricks of the CRTC, demos rely on timings from the gate array, so I hope that running them will help flush out any bugs. Here are the demos I have tested so far, I'll update this list as I go. "Pass" means that to my eyes the demo looks exactly the same on the replacement gate array as it does on a real one. These tests are based on [this forum post](https://mametesters.org/view.php?id=6061).
-
-| Demo           | URL                                       | Platform   | Result |
-|----------------|-------------------------------------------|------------|--------|
-| Batman Forever | http://www.pouet.net/prod.php?which=56761 | 6128/40010 | Pass |
-| Still Rising   | http://www.pouet.net/prod.php?which=61177 | 6128/40010 | Pass |
-| From Scratch   | http://www.pouet.net/prod.php?which=53596 | 6128/40010 | Pass |
-| Phortem        | http://www.pouet.net/prod.php?which=61465 | 6128/40010 |  |
-| Wolfenstrad    | http://www.pouet.net/prod.php?which=58887 | 6128/40010 |  |
-| DTC            | http://www.pouet.net/prod.php?which=20226 | 6128/40010 |  |
-| Yet Another Plasma!   | http://www.pouet.net/prod.php?which=60660 | 6128/40010 |  |
-| Wake Up!   | http://www.pouet.net/prod.php?which=59073 | 6128/40010 |  |
-| Breaking Baud   | http://www.pouet.net/prod.php?which=62934 | 6128/40010 |  |
-| Pheelone   | http://www.pouet.net/prod.php?which=53498 | 6128/40010 |  |
-
 # My first attempt
 For my first attempt at this I produced a very simple board which more or less wired up the XC95288XL to the pins of a DIP socket with a basic power supply and nothing else. My main goal was to determine if level shifting was required for output signals and to see if I could get some verilog to work. Since I wanted to learn verilog and FPGA programming in general I set about recreating Gerald's schematics for the Xilinx chip. I wrote verilog code for each page of the schematic in turn. Actually, this very nearly worked. I had a black screen but using an oscilloscope could see that the chip was "alive" and that all of the various signals were being produced. However, with a black screen troubleshooting was hard.
 
@@ -61,7 +36,30 @@ At this point I gave up for a while because I needed to create some new boards d
 
 ![First screen display](https://github.com/codedchip/AMSGateArray/blob/master/Docs/FirstScreen.jpg)
 
-With basic testing on an Amstrad CPC 6128 it seems that the GA is working as it should. I can play games, use my Dandanator, and all of the mode commands and colour changing commands in basic that I know about seem to work. *Much* more extenstive testing is required though. I have found that level shifting isn't required. Tracing the output signals from the replacement gate array to the corresponding targets on the CPC motherboard shows that they are well within specification. I did create a prototype board using two TXS0108 level shifters allowing the 16 outputs to be shifted to 5V. However, the inclusion of those chips resulted in a routing nightmare on such a small board and required the use of more PCB layers, making the board more expensive.
+# Current status
+- Having physical boards where changes to the verilog can be quickly checked in real hardware is proving invaluable.
+- Initial 40010 verilog implementation has passed basic testing on a real Amstrad CPC 6128.
+- Prototype boards have been produced for the 40010 pinout and the 40007 pinout. The verilog should theoretically work on both with just different pin constraints and perhaps some minor changes. I have not yet tested the 40007 as I don't have a CPC 464.
+- The next step is to continue to refine the verilog code and test further.
+- ~~At this time there is still some asynchronous logic, particularly in vsync and casgen. Although I haven't seen any evidence of it, this might cause timing glitches. Conversion of these sections to something more appropriate is a work in progress.~~
+- ~~There is also one place left (irqack) where a combinatorial loop is present. I'll remove this if it still exists after converting that part to be more synchronous.~~
+
+# Testing
+With basic testing on an Amstrad CPC 6128 it seems that the GA is working as it should. I can play games, use my Dandanator, and all of the mode commands and colour changing commands in basic that I know about seem to work. *Much* more extenstive testing is required though. 
+
+I've been pointed towards demos as a good way of testing out the gate array. Although they are normally using tricks of the CRTC, I hope that running them will help flush out any bugs. Here are the demos I have tested so far, I'll update this list as I go. "Pass" means that to my eyes the demo looks exactly the same when using the replacement gate array as with a real one. These tests are based on [this forum post](https://mametesters.org/view.php?id=6061).
+
+| Demo           | URL                                       | Platform   | Result |
+|----------------|-------------------------------------------|------------|--------|
+| Batman Forever | http://www.pouet.net/prod.php?which=56761 | 6128/40010 CPLD/CRTC 1/512Kb | Pass |
+| Still Rising   | http://www.pouet.net/prod.php?which=61177 | 6128/40010 CPLD/CRTC 1 | Pass |
+| From Scratch   | http://www.pouet.net/prod.php?which=53596 | 6128/40010 CPLD/CRTC 1 | Pass |
+| Phortem        | http://www.pouet.net/prod.php?which=61465 | 6128/40010 CPLD/CRTC 1 | Pass |
+| Wolfenstrad    | http://www.pouet.net/prod.php?which=58887 | 6128/40010 CPLD/CRTC 1 | Pass |
+| DTC            | http://www.pouet.net/prod.php?which=20226 | 6128/40010 CPLD/CRTC 1 | Pass |
+| Yet Another Plasma!   | http://www.pouet.net/prod.php?which=60660 | 6128/40010 CPLD/CRTC 1 | Pass |
+| Wake Up! (final)  | http://www.pouet.net/prod.php?which=59073 | 6128/40010 CPLD/CRTC 1 |  Pass |
+| Pheelone   | http://www.pouet.net/prod.php?which=53498 | 6128/40010 CPLD/CRTC 1 | Pass |
 
 # The boards
 The boards are very simple designs, varying only in the pinout of the DIP-40 footprint and the corresponding power and ground connections. I have not incorporated level shifters for the reasons discussed above, however I have used a 3.6V regulator to power the CPLD to improve logic levels. This is still within the spec of the XC95288XL, but can easily be substituted with a 3.3V model as required. As mentioned earlier, I haven't had issues caused by any output signals being outside TTL specs and a high being represented as a low. Hopefully this remains the case through testing as the simpler board design results in much better routing and comfortably fits on two layers. Virtually all signal traces are on the bottom of the board, with all power and ground traces on the top. As I said, very simple stuff. On both boards I have routed the 16MHz clock and HSYNC to the GCLK pins on the CPLD as these signals are both essentially external clocks and that is best practice. However, I hope to remove the dependency on HSYNC for clocking in due course.
